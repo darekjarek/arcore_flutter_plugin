@@ -6,19 +6,14 @@ import 'package:arcore_flutter_plugin/src/shape/arcore_shape.dart';
 
 class ArCoreRotatingNode extends ArCoreNode {
   ArCoreRotatingNode({
-    this.shape,
-    double degreesPerSecond,
-    Vector3 position,
-    Vector3 scale,
-    Vector4 rotation,
-    String name,
-  })  : degreesPerSecond = ValueNotifier(90.0),
-        super(
-          shape: shape,
-          name: name,
-          position: position,
-          scale: scale,
-        );
+    required this.shape,
+    double degreesPerSecond = 90.0,
+    required Vector3 position,
+    required Vector3 scale,
+    required Vector4 rotation,
+    String? name,
+  })  : degreesPerSecond = ValueNotifier(degreesPerSecond),
+        super(shape: shape, name: name, position: position, scale: scale, rotation: rotation);
 
   final ArCoreShape shape;
 
