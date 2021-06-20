@@ -6,7 +6,7 @@ class ArCoreMaterial {
 
 //  final String texture;
 
-  final Uint8List textureBytes;
+  final Uint8List? textureBytes;
 
   /// The metallic property defines whether the surface is a metallic (conductor)
   /// or a non-metallic (dielectric) surface. This property should be used as a
@@ -33,7 +33,7 @@ class ArCoreMaterial {
     this.reflectance = 0.5,
     required this.color,
 //    this.texture,
-    required this.textureBytes,
+    this.textureBytes,
   });
 
   Map<String, dynamic> toMap() => <String, dynamic>{

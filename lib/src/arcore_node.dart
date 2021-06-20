@@ -12,8 +12,8 @@ class ArCoreNode {
     this.image,
     String? name,
     required Vector3 position,
-    required Vector3 scale,
-    required Vector4 rotation,
+     Vector3? scale,
+    Vector4? rotation,
     this.children = const [],
   })  : name = name ?? random_string.randomString(),
         position = ValueNotifier(position),
@@ -27,9 +27,9 @@ class ArCoreNode {
 
   final ValueNotifier<Vector3> position;
 
-  final ValueNotifier<Vector3> scale;
+  final ValueNotifier<Vector3?> scale;
 
-  final ValueNotifier<Vector4> rotation;
+  final ValueNotifier<Vector4?> rotation;
 
   final String name;
 
