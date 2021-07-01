@@ -16,8 +16,8 @@ class ArCoreReferenceNode extends ArCoreNode {
     this.objectUrl,
     List<ArCoreNode> children = const [],
     required Vector3 position,
-    required Vector3 scale,
-    required Vector4 rotation,
+    Vector3? scale,
+    Vector4? rotation,
   }) : super(name: name, children: children, position: position, scale: scale, rotation: rotation);
 
   @override
