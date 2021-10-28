@@ -48,6 +48,8 @@ class ArCoreView(val activity: Activity, context: Context, messenger: BinaryMess
     private var faceMeshTexture: Texture? = null
     private val faceNodeMap = HashMap<AugmentedFace, AugmentedFaceNode>()
 
+    private var myPose: Pose? = null
+
     init {
         methodChannel.setMethodCallHandler(this)
         arSceneView = ArSceneView(context)
@@ -86,6 +88,38 @@ class ArCoreView(val activity: Activity, context: Context, messenger: BinaryMess
                     methodChannel.invokeMethod("onPlaneDetected", map)
                 }
             }
+
+            /*val screenPoint = view.getScreenCenter()
+
+            var hits = frame.hitTest(
+                screenPoint.x.toFloat(),
+                screenPoint.y.toFloat()
+            )
+
+            if (hits.isEmpty()) {
+                val approximateDistanceMeters = 5.0f
+
+                hits = frame.hitTestInstantPlacement(
+                    screenPoint.x.toFloat(),
+                    screenPoint.y.toFloat(),
+                    approximateDistanceMeters
+                )
+                if (hits.isNotEmpty()) {
+                    val point = hits[0].trackable as InstantPlacementPoint
+                    instantPlacement = WrappedInstantPlacement(
+                        point,
+                        point.trackingMethod,
+                        point.pose.distance(frame.camera.pose)
+                    )
+                    myAnchor = point.createAnchor(point.pose)
+                }
+            } else {
+                hits.find { it.trackable is Plane }?.let {
+                    myAnchor = it.createAnchor()
+                }
+            }*/
+
+            myPose = frame.getCamera().getPose()
         }
 
         faceSceneUpdateListener = Scene.OnUpdateListener { frameTime ->
@@ -348,18 +382,21 @@ class ArCoreView(val activity: Activity, context: Context, messenger: BinaryMess
                 result.error("Make Renderable Error", t.localizedMessage, null)
                 return@makeRenderable
             }
-            val myAnchor = arSceneView?.session?.createAnchor(Pose(flutterArCoreNode.getPosition(), flutterArCoreNode.getRotation()))
-            if (myAnchor != null) {
-                val anchorNode = AnchorNode(myAnchor)
-                anchorNode.name = flutterArCoreNode.name
-                anchorNode.renderable = renderable
 
-                debugLog("addNodeWithAnchor inserted ${anchorNode.name}")
-                attachNodeToParent(anchorNode, flutterArCoreNode.parentNodeName)
+            if(myPose != null) {
+                val myAnchor = arSceneView?.session?.createAnchor(myPose)
+                if (myAnchor != null) {
+                    val anchorNode = AnchorNode(myAnchor)
+                    anchorNode.name = flutterArCoreNode.name
+                    anchorNode.renderable = renderable
 
-                for (node in flutterArCoreNode.children) {
-                    node.parentNodeName = flutterArCoreNode.name
-                    onAddNode(node, null)
+                    debugLog("addNodeWithAnchor inserted ${anchorNode.name}")
+                    attachNodeToParent(anchorNode, flutterArCoreNode.parentNodeName)
+
+                    for (node in flutterArCoreNode.children) {
+                        node.parentNodeName = flutterArCoreNode.name
+                        onAddNode(node, null)
+                    }
                 }
             }
             result.success(null)
