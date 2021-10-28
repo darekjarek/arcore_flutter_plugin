@@ -118,11 +118,6 @@ class ArCoreView(
                 )
                 if (hits.isNotEmpty()) {
                     val point = hits[0].trackable as InstantPlacementPoint
-                    instantPlacement = WrappedInstantPlacement(
-                        point,
-                        point.trackingMethod,
-                        point.pose.distance(frame.camera.pose)
-                    )
                     myAnchor = point.createAnchor(point.pose)
                 }
             } else {
