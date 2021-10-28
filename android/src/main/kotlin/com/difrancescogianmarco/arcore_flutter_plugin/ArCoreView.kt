@@ -527,6 +527,7 @@ class ArCoreView(
                     }
                     config.updateMode = Config.UpdateMode.LATEST_CAMERA_IMAGE
                     config.focusMode = Config.FocusMode.AUTO;
+                    config.instantPlacementMode = Config.InstantPlacementMode.LOCAL_Y_UP
                     session.configure(config)
                     arSceneView?.setupSession(session)
                 }
