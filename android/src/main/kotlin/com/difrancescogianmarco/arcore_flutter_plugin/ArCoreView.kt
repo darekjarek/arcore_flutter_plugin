@@ -56,7 +56,7 @@ class ArCoreView(
     private var faceMeshTexture: Texture? = null
     private val faceNodeMap = HashMap<AugmentedFace, AugmentedFaceNode>()
 
-    private var myPose: Pose? = null
+    private var myAnchor: Anchor? = null
 
     init {
         methodChannel.setMethodCallHandler(this)
