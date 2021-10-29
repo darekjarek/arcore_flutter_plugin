@@ -108,22 +108,25 @@ class ArCoreView(
                 centreY
             )
 
-            if (hits.isEmpty()) {
-                val approximateDistanceMeters = 5.0f
+            try {
+                if (hits.isEmpty()) {
+                    val approximateDistanceMeters = 5.0f
 
-                hits = frame.hitTestInstantPlacement(
-                    centreX,
-                    centreY,
-                    approximateDistanceMeters
-                )
-                if (hits.isNotEmpty()) {
-                    val point = hits[0].trackable as InstantPlacementPoint
-                    myAnchor = point.createAnchor(point.pose)
+                    hits = frame.hitTestInstantPlacement(
+                        centreX,
+                        centreY,
+                        approximateDistanceMeters
+                    )
+                    if (hits.isNotEmpty()) {
+                        val point = hits[0].trackable as InstantPlacementPoint
+                        myAnchor = point.createAnchor(point.pose)
+                    }
+                } else {
+                    hits.find { it.trackable is Plane }?.let {
+                        myAnchor = it.createAnchor()
+                    }
                 }
-            } else {
-                hits.find { it.trackable is Plane }?.let {
-                    myAnchor = it.createAnchor()
-                }
+            } catch (e: Throwable) {
             }
         }
 
