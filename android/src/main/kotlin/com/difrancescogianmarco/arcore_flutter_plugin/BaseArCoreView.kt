@@ -20,7 +20,7 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.platform.PlatformView
 
-open class BaseArCoreView(val activity: Activity, context: Context, messenger: BinaryMessenger, id: Int, protected val debug: Boolean) : PlatformView, MethodChannel.MethodCallHandler {
+open class BaseArCoreView(val activity: Activity, context: Context?, messenger: BinaryMessenger, id: Int, protected val debug: Boolean) : PlatformView, MethodChannel.MethodCallHandler {
 
     lateinit var activityLifecycleCallbacks: Application.ActivityLifecycleCallbacks
     protected val methodChannel: MethodChannel = MethodChannel(messenger, "arcore_flutter_plugin_$id")
