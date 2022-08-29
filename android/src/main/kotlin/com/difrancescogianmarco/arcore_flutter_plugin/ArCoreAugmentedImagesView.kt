@@ -28,7 +28,7 @@ import com.google.ar.core.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
-class ArCoreAugmentedImagesView(activity: Activity, context: Context, messenger: BinaryMessenger, id: Int, val useSingleImage: Boolean, debug: Boolean) : BaseArCoreView(activity, context, messenger, id, debug), CoroutineScope {
+class ArCoreAugmentedImagesView(activity: Activity, context: Context?, messenger: BinaryMessenger, id: Int, val useSingleImage: Boolean, debug: Boolean) : BaseArCoreView(activity, context, messenger, id, debug), CoroutineScope {
 
     private val TAG: String = ArCoreAugmentedImagesView::class.java.name
     private var sceneUpdateListener: Scene.OnUpdateListener

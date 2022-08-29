@@ -32,7 +32,7 @@ import io.flutter.plugin.platform.PlatformView
 
 class ArCoreView(
     val activity: Activity,
-    context: Context,
+    context: Context?,
     messenger: BinaryMessenger,
     id: Int,
     private val isAugmentedFaces: Boolean,
