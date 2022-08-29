@@ -283,7 +283,7 @@ class ArCoreView(
 
     }*/
 
-    private fun setupLifeCycle(context: Context) {
+    private fun setupLifeCycle(context: Context?) {
         activityLifecycleCallbacks = object : Application.ActivityLifecycleCallbacks {
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
                 debugLog("onActivityCreated")
